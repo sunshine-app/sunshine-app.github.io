@@ -58,7 +58,7 @@
 基于 OpenCV + CODESYS，实现 0.6m/s 高速传送带上的无序来料分拣。  
 负责视觉感知、机器人控制与系统集成，成功落地并推广至多家分公司。
 
-[🔗 项目详情](./projects/robotic-sorting.md) | 🎥 *（现场视频待补充）*
+[🔗 项目详情](./projects/robotic-sorting.md) | 🎥 *（![实验环境视频](./assets/robotic-sorting.mp4)）*
 
 ---
 
@@ -81,7 +81,7 @@
 基于 LangGraph 构建智能体，复现港科大 MLLM-RoadCrack 论文。  
 实现 VLM 图像分类 + 像素级分割 + 拓扑化测量 + LLM 报告生成全自动化流程。
 
-[🔗 项目详情](./projects/road-crack-agent.md) | 📊 *（样例报告待补充）*
+[🔗 项目详情](./projects/road-crack-agent.md) | 📊 *（![样例报告](./assets/11171_report.pdf)）*
 
 ---
 
@@ -91,7 +91,7 @@
 基于边缘计算（Jetson）与轻量化模型，实现球员动作识别、网球轨迹追踪与落点统计。  
 创新提出 TCN 事件检测、输入通道压缩，完成 TensorRT 量化部署。
 
-[🔗 项目详情](./projects/tennis-eagle-eye-ai.md) | 🎥 *（Demo 视频待补充）*
+[🔗 项目详情](./projects/tennis-eagle-eye-ai.md) | 🎥 *（![运动分析报告](./assets/eagle-eye-ai-ui.png)）*
 
 ---
 
