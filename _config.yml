@@ -1,8 +1,26 @@
 theme: jekyll-theme-minimal
-author:
-  name: "inshine"
-  avatar: "/assets/inshine.jpg"
-  bio: "资深AI算法工程师 · 7年+经验 · 工业机器人 + 计算机视觉"
-  location: "上海"
-  email: "shinelover163@163.com"
-  github: "sunshine-app"
+  
+# ========== 左侧栏个人信息 ==========
+
+# 博客标题（显示为姓名）
+title: inshine
+
+# 副标题 / 一句话简介
+description: 资深AI算法工程师 · 7年+经验 · 工业机器人 + 计算机视觉
+
+# 个人头像（请将图片放在 assets/ 目录下）
+avatar: /assets/inshine.jpg
+
+# ========== 联系信息 ==========
+
+# 邮箱（会显示为 mailto 链接）
+email: shinelover163@163.com
+
+# GitHub 用户名（会显示 GitHub 图标及链接）
+github_username: sunshine-app
+
+
+# ========== 页脚信息 ==========
+
+# 页脚版权信息
+copyright: inshine © 2026
