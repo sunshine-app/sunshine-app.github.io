@@ -1,6 +1,6 @@
 # 👋 您好，我是inshine
 
-**资深 AI 算法工程师 | 工业机器人视觉专家**
+**AI 算法工程师 | 工业机器人视觉专家**
 
 [![GitHub](https://img.shields.io/badge/GitHub-sunshine--app-181717?logo=github)](https://github.com/sunshine-app)
 [![Email](https://img.shields.io/badge/Email-shinelover163@163.com-D14836?logo=gmail)](mailto:shinelover163@163.com)

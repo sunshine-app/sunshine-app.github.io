@@ -6,18 +6,9 @@ theme: jekyll-theme-minimal
 title: inshine
 
 # 副标题 / 一句话简介
-description: 资深AI算法工程师 · 7年+经验 · 工业机器人 + 计算机视觉
-
-# 个人头像（请将图片放在 assets/ 目录下）
-avatar: ./assets/inshine.png
+description: AI算法工程师 · 7年+经验 · 工业机器人 + 计算机视觉 + Jetson (nano|NX) 边缘计算 + 多模态
 
 # ========== 联系信息 ==========
-
-# 邮箱（会显示为 mailto 链接）
-email: shinelover163@163.com
-
-# GitHub 用户名（会显示 GitHub 图标及链接）
-github_username: sunshine-app
 
 
 # ========== 页脚信息 ==========
