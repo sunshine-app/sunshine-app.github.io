@@ -9,7 +9,7 @@ title: inshine
 description: 资深AI算法工程师 · 7年+经验 · 工业机器人 + 计算机视觉
 
 # 个人头像（请将图片放在 assets/ 目录下）
-avatar: /assets/inshine.jpg
+avatar: ./assets/inshine.png
 
 # ========== 联系信息 ==========
 
