@@ -11,7 +11,7 @@
 | **MQTT 通信进程** | 接收连接/开始/停止指令，上传片段（或回合）数据 JSON |
 | **模型推理子进程** | 各模型独立子进程，并行执行推理任务 |
 
-*![多进程架构](./assets/eagle-eye-ai-process.png)*
+*![多进程架构](/assets/eagle-eye-ai-process.png)*
 
 ### 核心执行流程
 
@@ -26,52 +26,88 @@
 7. **停止阶段**：MQTT 收到停止请求 → 停止采集 → 重新初始化，等待下次连接
 
 
-```mermaid
-flowchart TD
-    A[MQTT 收到连接请求] --> B[检查运行环境初始化完成]
-    B --> C[返回连接响应]
+```text
+MQTT 收到连接请求
+       │
+       ▼
+检查运行环境初始化完成
+       │
+       ▼
+返回连接响应
+       │
+       ▼
+MQTT 收到开始请求
+       │
+       ▼
+广角相机采集进程启动
+       │
+       ▼
+采集 3840x1080 图像 (30/60 FPS)
+       │
+       ▼
+拆分为左右半场 (1920x1080)
+       │
+       ▼
+存入循环内存池 (队列长度10，记录索引地址)
+       │
+       ▼
+主进程读取循环内存池，取出图像帧
+       │
+       ▼
+拆分左右半场
+       │
+       ├──────────────────┬──────────────────┐
+       ▼                  ▼                  ▼
+广角相机录制进程    双路长焦录制进程      前120帧热身阶段
+       │                  │                  │
+录制全景分段视频    录制左右半场分段视频    球场关键点检测
+或 RTMP 推流       或 RTMP 推流          (YOLO11n-Pose)
+       │                  │                  │
+       │                  │                  ▼
+       │                  │           求解变换矩阵预计算
+       │                  │                  │
+       └──────────────────┴──────────────────┘
+                              │
+                              ▼
+                       主循环阶段并行执行
+                              │
+           ┌──────────────────┼──────────────────┐
+           ▼                  ▼                  ▼
+    球员检测            正反手识别          网球轨迹追踪
+  (YOLO11n-Det)    (YOLO11n-Cls)      (TrackNetV2优化版)
+                    3帧灰度堆叠
+           │                  │                  │
+           └──────────────────┼──────────────────┘
+                              │
+                              ▼
+                        每60帧触发
+                              │
+                              ▼
+                    TCN 事件检测 (历史30帧+当前60帧=90帧)
+                              │
+                              ▼
+                 输出事件标签: none/serve/bounce/stroke/net_fault
+                              │
+                              ▼
+                       收集完整片段
+                              │
+                              ▼
+                   文件上传进程 → 腾讯云COS
+                              │
+                              ▼
+                    返回文件URL，拼接片段数据JSON
+                              │
+                              ▼
+                       MQTT上传片段数据
 
-    C --> D[MQTT 收到开始请求]
-    D --> E[广角相机采集进程启动]
 
-    E --> F[采集 3840x1080 图像<br>30/60 FPS]
-    F --> G[拆分为左右半场<br>1920x1080]
-    G --> H[存入循环内存池<br>队列长度10，记录索引地址]
-
-    H --> I[主进程读取循环内存池<br>取出图像帧]
-    I --> J[拆分左右半场]
-
-    J --> K[分发图像帧]
-    K --> L[广角相机录制进程]
-    K --> M[双路长焦录制进程<br>H264 输出/推流]
-
-    L --> L1[录制全景分段视频<br>或 RTMP 推流]
-    M --> M1[录制左右半场分段视频<br>或 RTMP 推流]
-
-    J --> N[前120帧热身阶段]
-    N --> O[球场关键点检测<br>YOLO11n-Pose]
-    O --> P[求解变换矩阵<br>预计算完成]
-
-    P --> Q[主循环阶段<br>并行执行]
-
-    Q --> R1[球员检测<br>YOLO11n-Det]
-    Q --> R2[正反手识别<br>YOLO11n-Cls<br>3帧灰度堆叠]
-    Q --> R3[网球轨迹追踪<br>TrackNetV2 优化版]
-
-    R1 & R2 & R3 --> S[每60帧触发]
-
-    S --> T[TCN 事件检测<br>历史30帧+当前60帧=90帧]
-    T --> U[输出事件标签<br>none/serve/bounce/stroke/net_fault]
-
-    U --> V[收集完整片段]
-    V --> W[文件上传进程<br>上传子图/JSON到腾讯云COS]
-    W --> X[返回文件URL<br>拼接片段数据JSON]
-
-    X --> Y[MQTT 上传片段数据]
-
-    D --> Z[MQTT 收到停止请求]
-    Z --> AA[停止相机采集]
-    AA --> AB[重新初始化<br>等待下次连接]
+MQTT 收到停止请求
+       │
+       ▼
+停止相机采集
+       │
+       ▼
+重新初始化，等待下次连接
 ```
 ---
 
@@ -91,27 +127,27 @@ flowchart TD
 - 仅需**前 120 帧**完成一次求解，后续帧复用矩阵（除非场景大幅变化）
 
 **参考球场：**
-*![球场关键点](./assets/rl/court_reference_text.png)* | *![球场关键点坐标](./assets/rl/left_right_court_reference.png)*
+*![球场关键点](/assets/rl/court_reference_text.png)* | *![球场关键点坐标](/assets/rl/left_right_court_reference.png)*
 
 **参考关键点选择：**
 ***左半场（12种方式）：***
-*![左参考点1](./assets/rl/left_court_conf/left_court_conf_1.jpg)* | *![左参考点2](./assets/rl/left_court_conf/left_court_conf_2.jpg)* 
-*![左参考点3](./assets/rl/left_court_conf/left_court_conf_3.jpg)* | *![左参考点4](./assets/rl/left_court_conf/left_court_conf_4.jpg)* 
-*![左参考点5](./assets/rl/left_court_conf/left_court_conf_5.jpg)* | *![左参考点6](./assets/rl/left_court_conf/left_court_conf_6.jpg)* 
-*![左参考点7](./assets/rl/left_court_conf/left_court_conf_7.jpg)* | *![左参考点8](./assets/rl/left_court_conf/left_court_conf_8.jpg)* 
-*![左参考点9](./assets/rl/left_court_conf/left_court_conf_9.jpg)* | *![左参考点10](./assets/rl/left_court_conf/left_court_conf_10.jpg)* 
-*![左参考点11](./assets/rl/left_court_conf/left_court_conf_11.jpg)* | *![左参考点12](./assets/rl/left_court_conf/left_court_conf_12.jpg)* 
+*![左参考点1](/assets/rl/left_court_conf/left_court_conf_1.jpg)* | *![左参考点2](/assets/rl/left_court_conf/left_court_conf_2.jpg)* 
+*![左参考点3](/assets/rl/left_court_conf/left_court_conf_3.jpg)* | *![左参考点4](/assets/rl/left_court_conf/left_court_conf_4.jpg)* 
+*![左参考点5](/assets/rl/left_court_conf/left_court_conf_5.jpg)* | *![左参考点6](/assets/rl/left_court_conf/left_court_conf_6.jpg)* 
+*![左参考点7](/assets/rl/left_court_conf/left_court_conf_7.jpg)* | *![左参考点8](/assets/rl/left_court_conf/left_court_conf_8.jpg)* 
+*![左参考点9](/assets/rl/left_court_conf/left_court_conf_9.jpg)* | *![左参考点10](/assets/rl/left_court_conf/left_court_conf_10.jpg)* 
+*![左参考点11](/assets/rl/left_court_conf/left_court_conf_11.jpg)* | *![左参考点12](/assets/rl/left_court_conf/left_court_conf_12.jpg)* 
 ***右半场（12种方式）：***
-*![右参考点1](./assets/rl/right_court_conf/right_court_conf_1.jpg)* | *![右参考点2](./assets/rl/right_court_conf/right_court_conf_2.jpg)* 
-*![右参考点3](./assets/rl/right_court_conf/right_court_conf_3.jpg)* | *![右参考点4](./assets/rl/right_court_conf/right_court_conf_4.jpg)* 
-*![右参考点5](./assets/rl/right_court_conf/right_court_conf_5.jpg)* | *![右参考点6](./assets/rl/right_court_conf/right_court_conf_6.jpg)* 
-*![右参考点7](./assets/rl/right_court_conf/right_court_conf_7.jpg)* | *![右参考点8](./assets/rl/right_court_conf/right_court_conf_8.jpg)* 
-*![右参考点9](./assets/rl/right_court_conf/right_court_conf_9.jpg)* | *![右参考点10](./assets/rl/right_court_conf/right_court_conf_10.jpg)* 
-*![右参考点11](./assets/rl/right_court_conf/right_court_conf_11.jpg)* | *![右参考点12](./assets/rl/right_court_conf/right_court_conf_12.jpg)* 
+*![右参考点1](/assets/rl/right_court_conf/right_court_conf_1.jpg)* | *![右参考点2](/assets/rl/right_court_conf/right_court_conf_2.jpg)* 
+*![右参考点3](/assets/rl/right_court_conf/right_court_conf_3.jpg)* | *![右参考点4](/assets/rl/right_court_conf/right_court_conf_4.jpg)* 
+*![右参考点5](/assets/rl/right_court_conf/right_court_conf_5.jpg)* | *![右参考点6](/assets/rl/right_court_conf/right_court_conf_6.jpg)* 
+*![右参考点7](/assets/rl/right_court_conf/right_court_conf_7.jpg)* | *![右参考点8](/assets/rl/right_court_conf/right_court_conf_8.jpg)* 
+*![右参考点9](/assets/rl/right_court_conf/right_court_conf_9.jpg)* | *![右参考点10](/assets/rl/right_court_conf/right_court_conf_10.jpg)* 
+*![右参考点11](/assets/rl/right_court_conf/right_court_conf_11.jpg)* | *![右参考点12](/assets/rl/right_court_conf/right_court_conf_12.jpg)* 
 
 **检测结果示例：**
 <!-- TODO: 添加关键点检测结果图 -->
-*![左球场关键点检测](./assets/rl/left_00005.jpg)* | *![右球场关键点检测](./assets/rl/right_00005.jpg)* 
+*![左球场关键点检测](/assets/rl/left_00005.jpg)* | *![右球场关键点检测](/assets/rl/right_00005.jpg)* 
 *左右球场各 12 个关键点检测结果示意*
 
 ---
@@ -131,7 +167,7 @@ flowchart TD
 
 **检测结果示例：**
 <!-- TODO: 添加轨迹追踪效果图 -->
-![网球轨迹追踪](./assets/tennis-track.png)
+![网球轨迹追踪](/assets/tennis-track.png)
 *网球轨迹追踪与落点统计示意*
 
 ---
@@ -153,7 +189,7 @@ flowchart TD
 
 **检测结果示例：**
 <!-- TODO: 添加事件检测结果图 -->
-![左半场TCN 事件检测](./assets/tcn_res_left.png) | ![右半场TCN 事件检测](./assets/tcn_res_right.png)
+![左半场TCN 事件检测](/assets/tcn_res_left.png) | ![右半场TCN 事件检测](/assets/tcn_res_right.png)
 *关键事件（发球、击球、出界等）检测结果示意*
 
 ---
@@ -172,7 +208,7 @@ flowchart TD
 
 **检测结果示例：**
 <!-- TODO: 添加球员检测结果图 -->
-![左半场球员检测](./assets/player_det_left.jpg) | ![右半场球员检测](./assets/player_det_right.jpg)
+![左半场球员检测](/assets/player_det_left.jpg) | ![右半场球员检测](/assets/player_det_right.jpg)
 *球员检测及身份区分示意*
 
 ---
@@ -193,7 +229,7 @@ flowchart TD
 
 **检测结果示例：**
 <!-- TODO: 添加正反手识别结果图 -->
-![左半场正反手识别](./assets/shot_cls_left.jpg) | ![右半场正反手识别](./assets/shot_cls_right.jpg)
+![左半场正反手识别](/assets/shot_cls_left.jpg) | ![右半场正反手识别](/assets/shot_cls_right.jpg)
 *正手 / 反手识别结果示意*
 
 ---
