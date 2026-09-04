@@ -29,6 +29,7 @@
 已覆盖数学、英语、物理三大学科，批阅准确率 >93%。
 
 [🔗 项目详情](./projects/smart-marking.md)
+
 📊样例： *![试卷正面](./assets/mb_01.jpg)* | *![试卷反面](./assets/mb_02.jpg)*
 
 ---
@@ -88,7 +89,6 @@
 实现 VLM 图像分类 + 像素级分割 + 拓扑化测量 + LLM 报告生成全自动化流程。
 
 [🔗 项目详情](./projects/road-crack-agent.md) | 📊 样例报告
-
 <embed src="./assets/11171_report.pdf" width="100%" height="500px" type="application/pdf">
 
 ---
@@ -99,7 +99,9 @@
 基于边缘计算（Jetson）与轻量化模型，实现球员动作识别、网球轨迹追踪与落点统计。  
 创新提出 TCN 事件检测、输入通道压缩，完成 TensorRT 量化部署。
 
-[🔗 项目详情](./projects/tennis-eagle-eye-ai.md) | 📊 运动分析报告 *![运动分析报告](./assets/eagle-eye-ai-ui.png)*
+[🔗 项目详情](./projects/tennis-eagle-eye-ai.md)
+
+📊 运动分析报告 *![运动分析报告](./assets/eagle-eye-ai-ui.png)*
 
 ---
 
@@ -108,7 +110,8 @@
 
 基于 PaddleDetection + FastDeploy + C++，完成藻类检测模型的训练、加密 DLL 封装及离线推理。
 
-[🔗 项目详情](./projects/alga-analysis.md)| 🎥 推理样例 *![样例1](./assets/alga_01.jpg)*| 🎥 *![样例2](./assets/alga_02.jpg)*
+[🔗 项目详情](./projects/alga-analysis.md)
+🎥 推理样例 *![样例1](./assets/alga_01.jpg)* | *![样例2](./assets/alga_02.jpg)*
 
 ---
 
