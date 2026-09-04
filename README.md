@@ -28,7 +28,9 @@
 创新点：YOLO 版面分析 + Qwen-VL 任意位置手写识别 + 三层分割模型解决超框作答。  
 已覆盖数学、英语、物理三大学科，批阅准确率 >93%。
 
-[🔗 项目详情](./projects/smart-marking.md) | 📊样例： *![试卷正面](./assets/mb_01.jpg)* | *![试卷反面](./assets/mb_02.jpg)*
+[🔗 项目详情](./projects/smart-marking.md)
+
+📊试卷正面 *![试卷正面](./assets/mb_01.jpg)* | 📊试卷反面 *![试卷反面](./assets/mb_02.jpg)*
 
 ---
 
@@ -108,7 +110,9 @@
 
 基于 PaddleDetection + FastDeploy + C++，完成藻类检测模型的训练、加密 DLL 封装及离线推理。
 
-[🔗 项目详情](./projects/alga-analysis.md) | 📊 推理样例 *![样例1](./assets/alga_01.jpg)* | *![样例2](./assets/alga_02.jpg)*
+[🔗 项目详情](./projects/alga-analysis.md)
+
+📊 推理样例1 *![样例1](./assets/alga_01.jpg)* | 📊 推理样例2 *![样例2](./assets/alga_02.jpg)*
 
 ---
 
