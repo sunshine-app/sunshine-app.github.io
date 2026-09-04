@@ -127,23 +127,7 @@ MQTT 收到停止请求
 - 仅需**前 120 帧**完成一次求解，后续帧复用矩阵（除非场景大幅变化）
 
 **参考球场：**
-*![球场关键点](/assets/rl/court_reference_text.png)* | *![球场关键点坐标](/assets/rl/left_right_court_reference.png)*
-
-**参考关键点选择：**
-***左半场（12种方式）：***
-*![左参考点1](/assets/rl/left_court_conf/left_court_conf_1.jpg)* | *![左参考点2](/assets/rl/left_court_conf/left_court_conf_2.jpg)* 
-*![左参考点3](/assets/rl/left_court_conf/left_court_conf_3.jpg)* | *![左参考点4](/assets/rl/left_court_conf/left_court_conf_4.jpg)* 
-*![左参考点5](/assets/rl/left_court_conf/left_court_conf_5.jpg)* | *![左参考点6](/assets/rl/left_court_conf/left_court_conf_6.jpg)* 
-*![左参考点7](/assets/rl/left_court_conf/left_court_conf_7.jpg)* | *![左参考点8](/assets/rl/left_court_conf/left_court_conf_8.jpg)* 
-*![左参考点9](/assets/rl/left_court_conf/left_court_conf_9.jpg)* | *![左参考点10](/assets/rl/left_court_conf/left_court_conf_10.jpg)* 
-*![左参考点11](/assets/rl/left_court_conf/left_court_conf_11.jpg)* | *![左参考点12](/assets/rl/left_court_conf/left_court_conf_12.jpg)* 
-***右半场（12种方式）：***
-*![右参考点1](/assets/rl/right_court_conf/right_court_conf_1.jpg)* | *![右参考点2](/assets/rl/right_court_conf/right_court_conf_2.jpg)* 
-*![右参考点3](/assets/rl/right_court_conf/right_court_conf_3.jpg)* | *![右参考点4](/assets/rl/right_court_conf/right_court_conf_4.jpg)* 
-*![右参考点5](/assets/rl/right_court_conf/right_court_conf_5.jpg)* | *![右参考点6](/assets/rl/right_court_conf/right_court_conf_6.jpg)* 
-*![右参考点7](/assets/rl/right_court_conf/right_court_conf_7.jpg)* | *![右参考点8](/assets/rl/right_court_conf/right_court_conf_8.jpg)* 
-*![右参考点9](/assets/rl/right_court_conf/right_court_conf_9.jpg)* | *![右参考点10](/assets/rl/right_court_conf/right_court_conf_10.jpg)* 
-*![右参考点11](/assets/rl/right_court_conf/right_court_conf_11.jpg)* | *![右参考点12](/assets/rl/right_court_conf/right_court_conf_12.jpg)* 
+球场关键点 ![球场关键点](/assets/rl/court_reference_text.png) | 球场关键点坐标 ![球场关键点坐标](/assets/rl/left_right_court_reference.png)
 
 **检测结果示例：**
 <!-- TODO: 添加关键点检测结果图 -->

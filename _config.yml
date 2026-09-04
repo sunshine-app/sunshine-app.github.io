@@ -3,18 +3,15 @@ theme: jekyll-theme-minimal
 # ========== 左侧栏个人信息 ==========
 
 # 博客标题（显示为姓名）
-title: inshine's homepage
+title: inshine
 
 # 副标题 / 一句话简介
 description: AI算法工程师 · 7年+经验 · 工业机器人 + 计算机视觉 + Jetson (nano|NX) 边缘计算 + 多模态
 
 # ========== 联系信息 ==========
-logo: /assets/inshine.jpg
-
 github_username: sunshine-app
 
 # ========== 页脚信息 ==========
 
 # 页脚版权信息
 copyright: inshine © 2026
-异常
