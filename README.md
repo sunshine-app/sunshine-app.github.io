@@ -39,7 +39,9 @@
 
 为上海中考成绩复核定制，双层版面分析 + 专用识别模型，准确提取姓名、报名号、座位号，已用于真实业务。
 
-[🔗 项目详情](./projects/exam-header.md)
+[🔗 项目详情](./projects/exam-header.md) |  📊 *（可视化样例参考）*
+
+📊large *![块级](./assets/1771633127_豆包_large.jpg)* | 📊small *![行级](./assets/1771633127_豆包_small.jpg)* | 📊文本 *![文本](./assets/1771633127_豆包_text.jpg)*
 
 ---
 
@@ -52,6 +54,9 @@
 
 [🔗 项目详情](./projects/ocr-series.md) | 📊 *（可视化样例参考）*
 
+📊词汇 *![词汇](./assets/ocr_en_1.png)* | 📊作文 *![作文](./assets/ocr_en_2.png)* | 📊表格 *![表格](./assets/ocr_table_3.png)*
+
+📊计算题图片 *![计算题图片](./assets/ocr_latex_img.jpg)* | 📊latex文本 *![latex文本](./assets/ocr_latex_text.png)* | 📊渲染 *![渲染](./assets/ocr_latex_view.jpg)*
 ---
 
 ### 🤖 智能无序分拣机器人
