@@ -1,13 +1,13 @@
 # 👋 您好，我是inshine
 
-**AI 算法工程师 | 工业机器人视觉专家**
+**AI 算法工程师 | 图像识别 | 工业机器人**
 
 [![GitHub](https://img.shields.io/badge/GitHub-sunshine--app-181717?logo=github)](https://github.com/sunshine-app)
 [![Email](https://img.shields.io/badge/Email-shinelover163@163.com-D14836?logo=gmail)](mailto:shinelover163@163.com)
 
 ---
 
-## 🧑‍💻 关于我
+## ‍💻 关于我
 
 7 年+ 跨 **工业机器人** 与 **计算机视觉** 复合落地经验。  
 擅长从算法研发到系统集成的全栈能力，专注解决复杂场景下的感知与决策问题。
@@ -49,7 +49,7 @@
 > *2020.11 – 2024.09 | 核心研发*
 
 构建教育 AI 核心引擎，总调用量 **超 5 亿次**，节约成本 **超千万元**。  
-技术亮点：GAN 数据增强 + Transformer 公式识别（图像→LaTeX）+ 高可用服务部署。  
+技术亮点：GAN 数据增强 + DBNet + CRNN系列变体 + VIT系列 + Transformer 公式识别（图像特征切分→LaTeX序列化）+ 高可用服务部署。  
 准确率：中文 >97%，公式 >94%。
 
 [🔗 项目详情](./projects/ocr-series.md) | 📊 *（可视化样例参考）*
@@ -64,7 +64,7 @@
 ### 🤖 智能无序分拣机器人
 > *2019.03 – 2020.10 | 核心技术成员*
 
-基于 OpenCV + CODESYS，实现 0.6m/s 高速传送带上的无序来料分拣。  
+基于 YOLOv3 + CODESYS，实现 0.6m/s 高速传送带上的无序来料分拣。  
 负责视觉感知、机器人控制与系统集成，成功落地并推广至多家分公司。
 
 [🔗 项目详情](./projects/robotic-sorting.md) | 🎥 实验环境演示
