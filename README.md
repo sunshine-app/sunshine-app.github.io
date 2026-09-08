@@ -54,7 +54,9 @@
 
 [🔗 项目详情](./projects/ocr-series.md) | 📊 *（可视化样例参考）*
 
-📊词汇 *![词汇](./assets/ocr_en_1.png)* | 📊作文 *![作文](./assets/ocr_en_2.png)* | 📊表格 *![表格](./assets/ocr_table_3.png)*
+📊词汇 *![词汇](./assets/ocr_en_1.png)* | 📊作文 *![作文](./assets/ocr_en_2.png)*
+
+📊中文 *![中文](./assets/ocr_cn_3.png)* | 📊表格 *![表格](./assets/ocr_table_4.png)*
 
 📊计算题图片 *![计算题图片](./assets/ocr_latex_img.jpg)* | 📊latex文本 *![latex文本](./assets/ocr_latex_text.png)* | 📊渲染 *![渲染](./assets/ocr_latex_view.jpg)*
 ---
